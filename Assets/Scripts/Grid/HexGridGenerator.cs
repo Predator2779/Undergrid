@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using Common;
 using UnityEditor;
 using Unity.EditorCoroutines.Editor;
 #endif
@@ -9,21 +10,25 @@ using UnityEngine;
 
 public class HexGridGenerator : MonoBehaviour
 {
-    public GameObject hexPrefab;
-    public int width = 10;
-    public int height = 15;
-    public float hexWidth = 1f;
-    public float hexHeight = 0.866f;
+    [SerializeField] private int _width = 10, _height = 15;
+    [SerializeField] private float _hexWidth = 1f, _hexHeight = 0.866f;
 
 #if UNITY_EDITOR
-    [Range(0f, 0.1f)]
-    public float generationDelay = 0.01f;
 
-    private List<GameObject> _cells = new();
-    private bool _isClearing;
-    private bool _cancelRequested;
+    [SerializeField] private PoolsKeeper _poolsKeeper;
+    [SerializeField] private ObjectPool<Hex> _hexPool;
+    [SerializeField, Range(0f, 0.1f)] private float _generationDelay = 0.01f;
+
+    private readonly List<Hex> _cells = new();
     private EditorCoroutine _generationCoroutine;
+    private bool _isClearing, _cancelRequested;
 
+    [EditorButton("Get Hex Pool")]
+    private void GetPool()
+    {
+        _hexPool = _poolsKeeper.GetPool<Hex>();
+    }
+    
     [EditorButton("Generate")]
     private void Generate()
     {
@@ -50,29 +55,28 @@ public class HexGridGenerator : MonoBehaviour
         }
 #endif
     }
-
     
     private IEnumerator GenerateGridStepByStep()
     {
-        int total = width * height;
+        int total = _width * _height;
         int created = 0;
 
         try
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < _height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < _width; x++)
                 {
                     if (_cancelRequested)
                         yield break;
 
-                    float xOffset = y % 2 == 0 ? 0f : hexWidth / 2f;
-                    float xPos = x * hexWidth + xOffset;
-                    float yPos = -y * hexHeight;
+                    float xOffset = y % 2 == 0 ? 0f : _hexWidth / 2f;
+                    float xPos = x * _hexWidth + xOffset;
+                    float yPos = -y * _hexHeight;
                     Vector2 pos = new Vector2(xPos, yPos);
 
-                    GameObject hex = PrefabUtility.InstantiatePrefab(hexPrefab, transform) as GameObject;
-                    hex.AddComponent<Hex>();
+                    Hex hex = _hexPool.Get();
+                    hex.transform.SetParent(transform);
                     hex.transform.localPosition = pos;
                     hex.name = $"Cell-[{x},{y}]";
 
@@ -82,8 +86,8 @@ public class HexGridGenerator : MonoBehaviour
                     float progress = (float)created / total;
                     EditorUtility.DisplayProgressBar("Generating Grid", $"Creating cell {created}/{total}", progress);
 
-                    if (generationDelay > 0f)
-                        yield return new EditorWaitForSeconds(generationDelay);
+                    if (_generationDelay > 0f)
+                        yield return new EditorWaitForSeconds(_generationDelay);
                     else
                         yield return null;
                 }
@@ -104,11 +108,12 @@ public class HexGridGenerator : MonoBehaviour
         if (_generationCoroutine != null)
             EditorCoroutineUtility.StopCoroutine(_generationCoroutine);
 
-        for (int i = transform.childCount - 1; i >= 0; i--)
+        foreach (var cell in _cells)
         {
-            var child = transform.GetChild(i);
-            Undo.DestroyObjectImmediate(child.gameObject);
+            if (cell != null)
+                _hexPool.Return(cell);
         }
+
 
         _cells.Clear();
         _isClearing = false;
@@ -123,22 +128,22 @@ public class HexGridGenerator : MonoBehaviour
         if (_cells.Count == 0)
         {
             _cells.Clear();
-            foreach (Transform child in transform)
-                _cells.Add(child.gameObject);
+            foreach (var child in transform)
+                _cells.Add(child as Hex);
         }
 
         if (_cells.Count == 0) return;
 
         int index = 0;
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < _height; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < _width; x++)
             {
                 if (index >= _cells.Count) return;
 
-                float xOffset = (y % 2 == 0) ? 0f : hexWidth / 2f;
-                float xPos = x * hexWidth + xOffset;
-                float yPos = -y * hexHeight;
+                float xOffset = (y % 2 == 0) ? 0f : _hexWidth / 2f;
+                float xPos = x * _hexWidth + xOffset;
+                float yPos = -y * _hexHeight;
                 Vector2 pos = new Vector2(xPos, yPos);
 
                 _cells[index].transform.localPosition = pos;
