@@ -66,12 +66,13 @@ public class HexGridGenerator : MonoBehaviour
                     if (_cancelRequested)
                         yield break;
 
-                    float xOffset = (y % 2 == 0) ? 0f : hexWidth / 2f;
+                    float xOffset = y % 2 == 0 ? 0f : hexWidth / 2f;
                     float xPos = x * hexWidth + xOffset;
                     float yPos = -y * hexHeight;
                     Vector2 pos = new Vector2(xPos, yPos);
 
                     GameObject hex = PrefabUtility.InstantiatePrefab(hexPrefab, transform) as GameObject;
+                    hex.AddComponent<Hex>();
                     hex.transform.localPosition = pos;
                     hex.name = $"Cell-[{x},{y}]";
 
