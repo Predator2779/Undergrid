@@ -55,7 +55,7 @@ public class DiggingController : MonoBehaviour
                 foreach (var hex in _highlighted)
                 {
                     if (hex != null)
-                        hex.gameObject.SetActive(false);
+                        hex.RemoveHex();
                 }
 
                 _highlighted.Clear();
@@ -89,7 +89,6 @@ public class DiggingController : MonoBehaviour
     {
         Vector2 origin = _player.position;
         Vector2 direction = _input.GetDirection();
-        
         Vector2 offset = Vector2.ClampMagnitude(direction, _distance);
 
         return origin + offset;

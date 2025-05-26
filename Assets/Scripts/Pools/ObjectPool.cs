@@ -50,6 +50,7 @@ namespace Common
             obj.gameObject.SetActive(false);
             obj.transform.SetParent(transform);
             _pool.Push(obj);
+            Debug.Log($"{obj.name} was returned");
         }
 
         private void SetNumber(T obj)

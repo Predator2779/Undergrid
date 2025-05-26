@@ -6,20 +6,21 @@ using Unity.EditorCoroutines.Editor;
 
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 public class HexGridGenerator : MonoBehaviour
 {
     [SerializeField] private int _width = 10, _height = 15;
     [SerializeField] private float _hexWidth = 1f, _hexHeight = 0.866f;
-
+    
 #if UNITY_EDITOR
 
     [SerializeField] private PoolsKeeper _poolsKeeper;
     [SerializeField] private ObjectPool<Hex> _hexPool;
     [SerializeField, Range(0f, 0.1f)] private float _generationDelay = 0.01f;
 
-    private readonly List<Hex> _cells = new();
+    [SerializeField] private List<Hex> _cells = new();
     private EditorCoroutine _generationCoroutine;
     private bool _isClearing, _cancelRequested;
 
@@ -84,7 +85,8 @@ public class HexGridGenerator : MonoBehaviour
 
                     created++;
                     float progress = (float)created / total;
-                    EditorUtility.DisplayProgressBar("Generating Grid", $"Creating cell {created}/{total}", progress);
+                    EditorUtility.DisplayProgressBar("Generating Grid", 
+                        $"Creating cell {created}/{total}", progress);
 
                     if (_generationDelay > 0f)
                         yield return new EditorWaitForSeconds(_generationDelay);
@@ -98,7 +100,7 @@ public class HexGridGenerator : MonoBehaviour
             EditorUtility.ClearProgressBar();
         }
     }
-
+    
     [EditorButton("Clear")]
     private void ClearGrid()
     {
@@ -114,7 +116,15 @@ public class HexGridGenerator : MonoBehaviour
                 _hexPool.Return(cell);
         }
 
-
+        var childCount = transform.childCount;
+        if (childCount > 0)
+        {
+            for (int i = childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
+        }
+        
         _cells.Clear();
         _isClearing = false;
 
@@ -152,4 +162,19 @@ public class HexGridGenerator : MonoBehaviour
         }
     }
 #endif
+    
+    private void OnEnable()
+    {
+        EventBus.OnHexRemoved.AddListener(RemoveHex);
+    }
+        
+    private void OnDisable()
+    {
+        EventBus.OnHexRemoved.RemoveListener(RemoveHex);
+    }
+
+    private void RemoveHex(Hex hex)
+    {
+        _cells.Remove(hex);
+    }
 }

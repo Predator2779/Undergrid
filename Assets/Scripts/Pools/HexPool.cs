@@ -1,7 +1,19 @@
+using DefaultNamespace;
+
 namespace Common
 {
     public class HexPool : ObjectPool<Hex>
     {
+        private void OnEnable()
+        {
+            EventBus.OnHexRemoved.AddListener(Return);
+        }
+        
+        private void OnDisable()
+        {
+            EventBus.OnHexRemoved.RemoveListener(Return);
+        }
+
         [EditorButton("Create Objects")]
         private void CreateObjects() => CreateObjects(_amount);
 

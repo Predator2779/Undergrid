@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -11,7 +12,7 @@ public class Hex : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         _data = new HexData(_renderer.sprite, _renderer.color);
     }
-
+    
     public void SetColor(Color color)
     {
         _renderer.color = color;
@@ -27,5 +28,10 @@ public class Hex : MonoBehaviour
     {
         _renderer.sprite = _data.Sprite;
         _renderer.color = _data.Color;
+    }
+
+    public void RemoveHex()
+    {
+        EventBus.OnHexRemoved?.Invoke(this);
     }
 }

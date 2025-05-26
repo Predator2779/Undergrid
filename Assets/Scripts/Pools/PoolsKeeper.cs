@@ -9,6 +9,14 @@ public class PoolsKeeper : MonoBehaviour
 
     private Dictionary<Type, IPool> _runtimePools = new();
 
+    private void Awake()
+    {
+        foreach (var pool in _pools)
+        {
+            // сделать добавление в стэк всех дочерних элементов и добивку до нужного кол-ва
+        }
+    }
+
     [EditorButton("Create Pools")]
     private void Create()
     {
