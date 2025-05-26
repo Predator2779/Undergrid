@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DiggingController : MonoBehaviour
 {
-    [SerializeField] private float _radius = 0.5f, _distance = 2f, _digTime = 1.5f;
+    [SerializeField] private float _radius = 0.5f, _distance = 2f, _digTime = 1.5f, _hexAmount = 1;
     [SerializeField] private Transform _player;
     [SerializeField] private List<Hex> _highlighted = new();
 
@@ -52,10 +52,13 @@ public class DiggingController : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= _digTime)
             {
-                foreach (var hex in _highlighted)
+                for(int i = 0; i < _hexAmount; i++)
                 {
-                    if (hex != null)
-                        hex.RemoveHex();
+                    if (_highlighted.Count < 1) continue;
+                    
+                    var hex = DigHex(digPos);
+                    hex.RemoveHex();
+                    _highlighted.Remove(hex);
                 }
 
                 _highlighted.Clear();
@@ -66,6 +69,18 @@ public class DiggingController : MonoBehaviour
         }
     }
 
+    private Hex DigHex(Vector2 digPos)
+    {
+        var nearest = _highlighted[0];
+        foreach (var hex in _highlighted.Where(hex => hex != null &&
+                                                      Vector2.Distance(digPos, hex.transform.position)
+                                                      < Vector2.Distance(digPos, nearest.transform.position)))
+        {
+            nearest = hex;
+        }
+        return nearest;
+    }
+    
     private void UpdateHighlights(List<Hex> newList)
     {
         foreach (var hex in _highlighted.Except(newList))
