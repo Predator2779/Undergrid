@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class HexData
 {
-    public Sprite Sprite { get; set; }
-    public Color Color { get; set; }
+    public HexDefinition Definition { get; }
 
-    public HexData(Sprite sprite, Color color)
+    public HexData(HexDefinition definition)
     {
-        Sprite = sprite;
-        Color = color;
+        Definition = definition;
     }
+
+    public string Id => Definition.Id;
+    public HexType Type => Definition.Type;
+    public Sprite Sprite => Definition.Sprite;
+    public Color Color => Definition.Color;
+    public int Value => Definition.Value;
+    public int EnergyCost => Definition.EnergyCost;
+    public float DigTime => Definition.DigTime;
+    public float Weight => Definition.Weight;
 }

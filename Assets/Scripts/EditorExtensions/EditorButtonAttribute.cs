@@ -1,13 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
-[AttributeUsage(AttributeTargets.Method, Inherited = true)]
-public class EditorButtonAttribute : PropertyAttribute
+namespace EditorExtensions
 {
-    public string Label;
-
-    public EditorButtonAttribute(string label = null)
+    [AttributeUsage(AttributeTargets.Method, Inherited = true)]
+    public class EditorButtonAttribute : PropertyAttribute
     {
-        Label = label;
+        public string Label;
+
+        public EditorButtonAttribute(string label = null)
+        {
+            Label = label;
+        }
     }
 }

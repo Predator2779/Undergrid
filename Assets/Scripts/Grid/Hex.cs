@@ -1,37 +1,48 @@
+using System;
 using DefaultNamespace;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class Hex : MonoBehaviour
+namespace Grid
 {
-    private SpriteRenderer _renderer;
-    private HexData _data;
-    
-    private void Awake()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class Hex : MonoBehaviour
     {
-        _renderer = GetComponent<SpriteRenderer>();
-        _data = new HexData(_renderer.sprite, _renderer.color);
-    }
-    
-    public void SetColor(Color color)
-    {
-        _renderer.color = color;
-    }
-    
-    public void SetHex(HexData data)
-    {
-        _renderer.sprite = data.Sprite;
-        _renderer.color = data.Color;
-    }
+        [SerializeField] private SpriteRenderer _renderer;
+        
+        private HexData _data;
 
-    public void ResetHex()
-    {
-        _renderer.sprite = _data.Sprite;
-        _renderer.color = _data.Color;
-    }
+        private void OnValidate()
+        {
+            _renderer ??= GetComponent<SpriteRenderer>();
+        }
 
-    public void RemoveHex()
-    {
-        EventBus.OnHexRemoved?.Invoke(this);
+        private void Awake()
+        {
+            _renderer = GetComponent<SpriteRenderer>();
+            // _data = new HexData(_renderer.sprite, _renderer.color);
+        }
+    
+        public void SetColor(Color color)
+        {
+            _renderer.color = color;
+        }
+    
+        public void SetHex(HexData data)
+        {
+            _renderer ??= GetComponent<SpriteRenderer>();
+            _renderer.sprite = data.Sprite;
+            _renderer.color = data.Color;
+        }
+
+        public void ResetHex()
+        {
+            _renderer.sprite = _data.Sprite;
+            _renderer.color = _data.Color;
+        }
+
+        public void RemoveHex()
+        {
+            EventBus.OnHexRemoved?.Invoke(this);
+        }
     }
 }

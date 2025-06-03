@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System.Threading.Tasks;
 using Common;
 using UnityEditor;
 using Unity.EditorCoroutines.Editor;
@@ -6,7 +7,10 @@ using Unity.EditorCoroutines.Editor;
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
+using EditorExtensions;
+using Grid;
 using UnityEngine;
 
 public class HexGridGenerator : MonoBehaviour
@@ -31,10 +35,11 @@ public class HexGridGenerator : MonoBehaviour
     }
     
     [EditorButton("Generate")]
-    private void Generate()
+    private async Task Generate()
     {
         ClearGrid();
-
+        await HexLibrary.InitializeAsync();
+        
         if (_generationCoroutine != null)
             EditorCoroutineUtility.StopCoroutine(_generationCoroutine);
 
@@ -81,6 +86,11 @@ public class HexGridGenerator : MonoBehaviour
                     hex.transform.localPosition = pos;
                     hex.name = $"Cell-[{x},{y}]";
 
+                    var hexes = HexLibrary.All.ToList();
+                    var selected = HexLibrary.ChooseWeighted(hexes);
+                    
+                    hex.SetHex(selected);
+                    
                     _cells.Add(hex);
 
                     created++;

@@ -1,6 +1,9 @@
+using Common;
 using DefaultNamespace;
+using EditorExtensions;
+using Grid;
 
-namespace Common
+namespace Pools
 {
     public class HexPool : ObjectPool<Hex>
     {

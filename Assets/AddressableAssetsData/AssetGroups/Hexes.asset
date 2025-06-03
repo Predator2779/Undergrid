@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Hexes
+  m_EditorClassIdentifier: 
+  m_GroupName: Hexes
+  m_GUID: 3bb8faf5e5582dd4d97eb41100f3e4dc
+  m_SerializeEntries:
+  - m_GUID: 26caec79bd318b843a8eae3b197f5280
+    m_Address: Assets/Configs/Hexes/Stone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hexes
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ff0f715da8ff754eb6b6f9407696005
+    m_Address: Assets/Configs/Hexes/Gold.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hexes
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c9e90d884844204c9ce366eebc20efa
+    m_Address: Assets/Configs/Hexes/Soil.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hexes
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4347e9d1ed5a489439305370def83ad3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: eaa1118e18394f443b11411ba7b38b9e, type: 2}
+    - {fileID: 11400000, guid: 41d7fb4dd733bff418474c59bf117305, type: 2}

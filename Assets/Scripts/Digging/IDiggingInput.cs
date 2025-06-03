@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public interface IDiggingInput
+namespace Digging
 {
-    public bool IsDigging { get; }
-    public bool IsCanceling { get; }
+    public interface IDiggingInput
+    {
+        public bool IsDigging { get; }
+        public bool IsCanceling { get; }
     
-    public Vector2 GetDirection();
+        public Vector2 GetDirection();
+    }
 }
