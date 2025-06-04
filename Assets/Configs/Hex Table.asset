@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c271e7ed304f9fa1101ee1fe4f5abf, type: 3}
+  m_Name: Hex Table
+  m_EditorClassIdentifier: 
+  Layers:
+  - MinY: 0
+    MaxY: 9
+    Entries:
+    - Hex: {fileID: 11400000, guid: 0f57bca879a8dd744a0ec30ab86a6fc7, type: 2}
+      Weight: 100
+    - Hex: {fileID: 11400000, guid: ce8f0832dee98f84583b0ff4836bb279, type: 2}
+      Weight: 30
+    - Hex: {fileID: 11400000, guid: 89e017af699da954793bc52fc025d825, type: 2}
+      Weight: 10
+  - MinY: 10
+    MaxY: 19
+    Entries:
+    - Hex: {fileID: 11400000, guid: 69e46610adc1ed746b5f557b4c2818f5, type: 2}
+      Weight: 25
+    - Hex: {fileID: 11400000, guid: fb45d2eeee95acf428c322b2d79df37a, type: 2}
+      Weight: 20
+    - Hex: {fileID: 11400000, guid: f8cec5d3111d5ac4bbf8770c5f169b1a, type: 2}
+      Weight: 20
+    - Hex: {fileID: 11400000, guid: 69666d70160649f48a48889caf7d73a2, type: 2}
+      Weight: 15
+    - Hex: {fileID: 11400000, guid: 6798050ad64b0c64b8a51a5eeef58e11, type: 2}
+      Weight: 10
+  - MinY: 20
+    MaxY: 40
+    Entries:
+    - Hex: {fileID: 11400000, guid: f52c9e86a3477a949adf1e160d8354eb, type: 2}
+      Weight: 2
+    - Hex: {fileID: 11400000, guid: 5f97d25b594b74044bb7160e963459f3, type: 2}
+      Weight: 1
+    - Hex: {fileID: 11400000, guid: 0fabb689618fa4949883b00ab3de9469, type: 2}
+      Weight: 0.3
+    - Hex: {fileID: 11400000, guid: 222bf8f7eb0876c4b85991bb710214da, type: 2}
+      Weight: 1
+    - Hex: {fileID: 11400000, guid: 6798050ad64b0c64b8a51a5eeef58e11, type: 2}
+      Weight: 3
+    - Hex: {fileID: 11400000, guid: 89e017af699da954793bc52fc025d825, type: 2}
+      Weight: 3
+    - Hex: {fileID: 11400000, guid: f8cec5d3111d5ac4bbf8770c5f169b1a, type: 2}
+      Weight: 3
+    - Hex: {fileID: 11400000, guid: ce8f0832dee98f84583b0ff4836bb279, type: 2}
+      Weight: 3

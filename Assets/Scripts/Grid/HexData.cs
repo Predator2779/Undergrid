@@ -1,12 +1,16 @@
+using System;
+using Grid;
 using UnityEngine;
 
+[Serializable]
 public class HexData
 {
-    public HexDefinition Definition { get; }
+    [SerializeField] private HexDefinition _definition;
+    public HexDefinition Definition => _definition;
 
     public HexData(HexDefinition definition)
     {
-        Definition = definition;
+        _definition = definition;
     }
 
     public string Id => Definition.Id;

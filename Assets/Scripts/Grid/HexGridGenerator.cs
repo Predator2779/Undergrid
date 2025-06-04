@@ -11,6 +11,7 @@ using System.Linq;
 using DefaultNamespace;
 using EditorExtensions;
 using Grid;
+using InDevelop;
 using UnityEngine;
 
 public class HexGridGenerator : MonoBehaviour
@@ -20,6 +21,7 @@ public class HexGridGenerator : MonoBehaviour
     
 #if UNITY_EDITOR
 
+    [SerializeField] private LayeredHexTable _hexLayers;
     [SerializeField] private PoolsKeeper _poolsKeeper;
     [SerializeField] private ObjectPool<Hex> _hexPool;
     [SerializeField, Range(0f, 0.1f)] private float _generationDelay = 0.01f;
@@ -86,12 +88,17 @@ public class HexGridGenerator : MonoBehaviour
                     hex.transform.localPosition = pos;
                     hex.name = $"Cell-[{x},{y}]";
 
-                    var hexes = HexLibrary.All.ToList();
-                    var selected = HexLibrary.ChooseWeighted(hexes);
+                    var selected = HexLayerSelector.Choose(y, _hexLayers);
                     
-                    hex.SetHex(selected);
-                    
+                    if (selected.Type == HexType.Void)
+                    {
+                        _hexPool.Return(hex);
+                        continue;            
+                    }
+
+                    hex.SetHex(new HexData(selected));
                     _cells.Add(hex);
+
 
                     created++;
                     float progress = (float)created / total;

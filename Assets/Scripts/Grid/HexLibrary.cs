@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grid;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -43,21 +44,21 @@ public static class HexLibrary
         throw new System.Exception($"HexDefinition not found: {id}");
     }
 
-    public static IEnumerable<HexData> All => _definitions.Values;
-
-    public static HexData ChooseWeighted(List<HexData> defs)
-    {
-        float totalWeight = defs.Sum(d => d.Weight);
-        float roll = Random.Range(0, totalWeight);
-        float accum = 0;
-
-        foreach (var def in defs)
-        {
-            accum += def.Weight;
-            if (roll <= accum)
-                return def;
-        }
-
-        return defs[0];
-    }
+    // public static IEnumerable<HexData> All => _definitions.Values;
+    //
+    // public static HexData ChooseWeighted(List<HexData> defs)
+    // {
+    //     float totalWeight = defs.Sum(d => d.Weight);
+    //     float roll = Random.Range(0, totalWeight);
+    //     float accum = 0;
+    //
+    //     foreach (var def in defs)
+    //     {
+    //         accum += def.Weight;
+    //         if (roll <= accum)
+    //             return def;
+    //     }
+    //
+    //     return defs[0];
+    // }
 }

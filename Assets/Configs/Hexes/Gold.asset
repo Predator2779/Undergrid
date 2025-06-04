@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1aff7a5e46041a18750c3d015c09453, type: 3}
-  m_Name: Gold
+  m_Name: gold
   m_EditorClassIdentifier: 
-  Id: Gold
-  Type: 0
+  Id: gold
+  Type: 2
   Sprite: {fileID: 21300000, guid: 312e833229f7bf84eb2329afca47d4b6, type: 3}
-  Color: {r: 1, g: 1, b: 0, a: 1}
-  Value: 100
-  EnergyCost: 5
-  DigTime: 4
-  Weight: 0.15
+  Color: {r: 1, g: 0.84313726, b: 0, a: 1}
+  Value: 20
+  EnergyCost: 6
+  DigTime: 2.5
+  Weight: 0.0075

@@ -8,8 +8,7 @@ namespace Grid
     public class Hex : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _renderer;
-        
-        private HexData _data;
+        [SerializeField] private HexData _data;
 
         private void OnValidate()
         {
@@ -30,6 +29,7 @@ namespace Grid
         public void SetHex(HexData data)
         {
             _renderer ??= GetComponent<SpriteRenderer>();
+            _data = data;
             _renderer.sprite = data.Sprite;
             _renderer.color = data.Color;
         }

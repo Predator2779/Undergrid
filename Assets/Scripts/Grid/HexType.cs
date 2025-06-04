@@ -1,8 +1,10 @@
 public enum HexType
 {
+    Soil,
     Stone,
     Ore,
-    Artifact,
+    Trap,
     Void,
-    Wall
+    Artifact,
+    PowerUp
 }
