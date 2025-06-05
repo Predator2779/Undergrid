@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4690652564096078122}
   - component: {fileID: 8669626354344294185}
-  - component: {fileID: 4574882657070252329}
+  - component: {fileID: 1155343026885758362}
   - component: {fileID: 2532624140146265037}
   m_Layer: 0
   m_Name: Hex
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &4574882657070252329
+--- !u!60 &1155343026885758362
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,3 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb4abed3638451b8d72530d89d4565e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderer: {fileID: 8669626354344294185}
+  _data:
+    _definition: {fileID: 0}

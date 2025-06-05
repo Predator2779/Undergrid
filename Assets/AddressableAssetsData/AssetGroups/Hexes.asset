@@ -69,6 +69,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Hexes
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9061bec2d2f66bc488177d3ae00a857f
+    m_Address: Assets/Configs/Hexes/grass.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce8f0832dee98f84583b0ff4836bb279
     m_Address: Assets/Configs/Hexes/stone.asset
     m_ReadOnly: 0

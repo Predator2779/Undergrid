@@ -18,6 +18,7 @@ public class HexGridGenerator : MonoBehaviour
 {
     [SerializeField] private int _width = 10, _height = 15;
     [SerializeField] private float _hexWidth = 1f, _hexHeight = 0.866f;
+    [SerializeField] private int _blendRange = 5;
     
 #if UNITY_EDITOR
 
@@ -97,8 +98,15 @@ public class HexGridGenerator : MonoBehaviour
                     }
 
                     hex.SetHex(new HexData(selected));
-                    _cells.Add(hex);
 
+                    // только для 1 слоя
+                    if (y == 0 && hex.gameObject.TryGetComponent<PolygonCollider2D>(out var col))
+                    {
+                        DestroyImmediate(col);
+                        hex.gameObject.AddComponent<PolygonCollider2D>();
+                    }
+                    
+                    _cells.Add(hex);
 
                     created++;
                     float progress = (float)created / total;
@@ -130,7 +138,9 @@ public class HexGridGenerator : MonoBehaviour
         foreach (var cell in _cells)
         {
             if (cell != null)
+            {
                 _hexPool.Return(cell);
+            }
         }
 
         var childCount = transform.childCount;

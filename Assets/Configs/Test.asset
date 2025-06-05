@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c271e7ed304f9fa1101ee1fe4f5abf, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  Layers:
+  - MinY: 0
+    MaxY: 0
+    Entries:
+    - Hex: {fileID: 11400000, guid: 9061bec2d2f66bc488177d3ae00a857f, type: 2}
+      Weight: 100
+  - MinY: 1
+    MaxY: 9
+    Entries:
+    - Hex: {fileID: 11400000, guid: 0f57bca879a8dd744a0ec30ab86a6fc7, type: 2}
+      Weight: 100
+  - MinY: 10
+    MaxY: 19
+    Entries:
+    - Hex: {fileID: 11400000, guid: 69e46610adc1ed746b5f557b4c2818f5, type: 2}
+      Weight: 10
+  - MinY: 20
+    MaxY: 40
+    Entries:
+    - Hex: {fileID: 11400000, guid: 0f57bca879a8dd744a0ec30ab86a6fc7, type: 2}
+      Weight: 33
+    - Hex: {fileID: 11400000, guid: f52c9e86a3477a949adf1e160d8354eb, type: 2}
+      Weight: 33
+    - Hex: {fileID: 11400000, guid: 69e46610adc1ed746b5f557b4c2818f5, type: 2}
+      Weight: 33

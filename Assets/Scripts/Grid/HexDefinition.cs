@@ -14,5 +14,8 @@ namespace Grid
         [Range(1, 30)] public int EnergyCost;
         [Range(0, 10)] public float DigTime;
         [Range(0, 1)] public float Weight;
+        
+        [Header("Optional")]
+        public bool StrictLayerOnly = false;
     }
 }
