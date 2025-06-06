@@ -18,10 +18,9 @@ namespace InDevelop
                     .FirstOrDefault();
 
                 if (currentLayer == null || currentLayer.Entries.Count == 0)
-                    throw 
-                        new System.Exception($"No layers defined or non-empty at depth = {depth}");
+                    throw new System.Exception($"No layers defined or non-empty at depth = {depth}");
             }
-            
+
             bool canBlend = !currentLayer.IsTechnicalLayer;
             
             DepthLayer lowerLayer = null;
@@ -33,15 +32,22 @@ namespace InDevelop
                     .LastOrDefault();
             }
 
+            // Расчет адаптивного шанса
             bool useLower = false;
-            if (canBlend && lowerLayer != null && lowerLayer.Entries.Count > 0)
+            if (canBlend && lowerLayer != null && lowerLayer.Entries.Count > 0 && blendChance > 0)
             {
-                int roll = Random.Range(0, 100);
-                useLower = blendChance > roll;
+                int layerHeight = currentLayer.MaxDepth - currentLayer.MinDepth;
+                if (layerHeight > 0)
+                {
+                    float t = Mathf.InverseLerp(currentLayer.MinDepth, currentLayer.MaxDepth, depth); // 0 (верх) → 1 (низ)
+                    float adjustedChance = blendChance * t; // ближе к низу — больше шанс
+                    int roll = Random.Range(0, 100);
+                    useLower = roll < adjustedChance;
+                }
             }
 
             var chosenLayer = useLower ? lowerLayer : currentLayer;
-            
+
             float total = chosenLayer.Entries.Sum(e => e.Weight);
             float rollFinal = Random.Range(0, total);
             float accum = 0f;
