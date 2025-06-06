@@ -18,7 +18,7 @@ public class HexGridGenerator : MonoBehaviour
 {
     [SerializeField] private int _width = 10, _height = 15;
     [SerializeField] private float _hexWidth = 1f, _hexHeight = 0.866f;
-    [SerializeField] private int _blendRange = 5;
+    [SerializeField, Range(0, 100)] private int _blendRange = 30;
     
 #if UNITY_EDITOR
 
@@ -89,7 +89,7 @@ public class HexGridGenerator : MonoBehaviour
                     hex.transform.localPosition = pos;
                     hex.name = $"Cell-[{x},{y}]";
 
-                    var selected = HexLayerSelector.Choose(y, _hexLayers);
+                    var selected = HexLayerSelector.Choose(y, _hexLayers, _blendRange);
                     
                     if (selected.Type == HexType.Void)
                     {

@@ -1,38 +1,61 @@
 using System.Linq;
-using Grid;
 using UnityEngine;
+using Grid;
 
 namespace InDevelop
 {
     public static class HexLayerSelector
     {
-        public static HexDefinition Choose(int y, LayeredHexTable table)
+        public static HexDefinition Choose(int depth, LayeredHexTable table, int blendChance = 0)
         {
-            var layer = table.Layers.FirstOrDefault(l => y >= l.MinY && y <= l.MaxY);
+            var currentLayer = table.Layers.FirstOrDefault(layer => layer.MinDepth <= depth && depth <= layer.MaxDepth);
             
-            if (layer == null)
+            if (currentLayer == null)
             {
-                layer = table.Layers.OrderByDescending(l => l.MaxY).FirstOrDefault();
-                if (layer == null || layer.Entries.Count == 0)
-                {
-                    throw new System.Exception("No layers defined in the table.");
-                }
+                currentLayer = table.Layers
+                    .Where(layer => !layer.IsTechnicalLayer)
+                    .OrderByDescending(layer => layer.MaxDepth)
+                    .FirstOrDefault();
+
+                if (currentLayer == null || currentLayer.Entries.Count == 0)
+                    throw 
+                        new System.Exception($"No layers defined or non-empty at depth = {depth}");
             }
             
-            float total = layer.Entries.Sum(e => e.Weight);
-            float roll = Random.Range(0, total);
-            float accum = 0;
+            bool canBlend = !currentLayer.IsTechnicalLayer;
+            
+            DepthLayer lowerLayer = null;
+            if (canBlend)
+            {
+                lowerLayer = table.Layers
+                    .Where(layer => layer.MinDepth > currentLayer.MaxDepth && !layer.IsTechnicalLayer)
+                    .OrderByDescending(layer => layer.MinDepth)
+                    .LastOrDefault();
+            }
 
-            foreach (var entry in layer.Entries)
+            bool useLower = false;
+            if (canBlend && lowerLayer != null && lowerLayer.Entries.Count > 0)
+            {
+                int roll = Random.Range(0, 100);
+                useLower = blendChance > roll;
+            }
+
+            var chosenLayer = useLower ? lowerLayer : currentLayer;
+            
+            float total = chosenLayer.Entries.Sum(e => e.Weight);
+            float rollFinal = Random.Range(0, total);
+            float accum = 0f;
+
+            foreach (var entry in chosenLayer.Entries)
             {
                 accum += entry.Weight;
-                if (roll <= accum)
+                if (rollFinal <= accum)
                 {
                     return entry.Hex;
                 }
             }
 
-            return layer.Entries[0].Hex;
+            return chosenLayer.Entries[0].Hex;
         }
     }
 }

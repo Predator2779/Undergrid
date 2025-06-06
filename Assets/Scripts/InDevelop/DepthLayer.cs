@@ -5,8 +5,9 @@ namespace InDevelop
     [System.Serializable]
     public class DepthLayer
     {
-        public int MinY; // например: 0
-        public int MaxY; // например: 5
+        public int MinDepth;
+        public int MaxDepth;
         public List<HexSpawnEntry> Entries;
+        public bool IsTechnicalLayer;
     }
 }
