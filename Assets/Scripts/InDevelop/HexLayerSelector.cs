@@ -31,16 +31,15 @@ namespace InDevelop
                     .OrderByDescending(layer => layer.MinDepth)
                     .LastOrDefault();
             }
-
-            // Расчет адаптивного шанса
+            
             bool useLower = false;
             if (canBlend && lowerLayer != null && lowerLayer.Entries.Count > 0 && blendChance > 0)
             {
                 int layerHeight = currentLayer.MaxDepth - currentLayer.MinDepth;
                 if (layerHeight > 0)
                 {
-                    float t = Mathf.InverseLerp(currentLayer.MinDepth, currentLayer.MaxDepth, depth); // 0 (верх) → 1 (низ)
-                    float adjustedChance = blendChance * t; // ближе к низу — больше шанс
+                    float t = Mathf.InverseLerp(currentLayer.MinDepth, currentLayer.MaxDepth, depth);
+                    float adjustedChance = blendChance * t;
                     int roll = Random.Range(0, 100);
                     useLower = roll < adjustedChance;
                 }

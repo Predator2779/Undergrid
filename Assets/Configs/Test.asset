@@ -24,20 +24,38 @@ MonoBehaviour:
     Entries:
     - Hex: {fileID: 11400000, guid: 0f57bca879a8dd744a0ec30ab86a6fc7, type: 2}
       Weight: 100
+    - Hex: {fileID: 11400000, guid: ce8f0832dee98f84583b0ff4836bb279, type: 2}
+      Weight: 100
     IsTechnicalLayer: 0
   - MinDepth: 10
     MaxDepth: 19
     Entries:
-    - Hex: {fileID: 11400000, guid: 69e46610adc1ed746b5f557b4c2818f5, type: 2}
+    - Hex: {fileID: 11400000, guid: 0f57bca879a8dd744a0ec30ab86a6fc7, type: 2}
+      Weight: 50
+    - Hex: {fileID: 11400000, guid: 89e017af699da954793bc52fc025d825, type: 2}
+      Weight: 20
+    - Hex: {fileID: 11400000, guid: ce8f0832dee98f84583b0ff4836bb279, type: 2}
       Weight: 10
+    - Hex: {fileID: 11400000, guid: f8cec5d3111d5ac4bbf8770c5f169b1a, type: 2}
+      Weight: 15
+    - Hex: {fileID: 11400000, guid: 69e46610adc1ed746b5f557b4c2818f5, type: 2}
+      Weight: 5
     IsTechnicalLayer: 0
   - MinDepth: 20
     MaxDepth: 40
     Entries:
     - Hex: {fileID: 11400000, guid: 0f57bca879a8dd744a0ec30ab86a6fc7, type: 2}
-      Weight: 33
+      Weight: 30
     - Hex: {fileID: 11400000, guid: f52c9e86a3477a949adf1e160d8354eb, type: 2}
-      Weight: 33
+      Weight: 10
     - Hex: {fileID: 11400000, guid: 69e46610adc1ed746b5f557b4c2818f5, type: 2}
-      Weight: 33
+      Weight: 20
+    - Hex: {fileID: 11400000, guid: 6798050ad64b0c64b8a51a5eeef58e11, type: 2}
+      Weight: 10
+    - Hex: {fileID: 11400000, guid: e0f29d483cb82424caf173e40df04e8c, type: 2}
+      Weight: 5
+    - Hex: {fileID: 11400000, guid: 222bf8f7eb0876c4b85991bb710214da, type: 2}
+      Weight: 10
+    - Hex: {fileID: 11400000, guid: 69666d70160649f48a48889caf7d73a2, type: 2}
+      Weight: 10
     IsTechnicalLayer: 0
